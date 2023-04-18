@@ -1,0 +1,25 @@
+﻿using PROG1442_WeatherApp.Services;
+using PROG1442_WeatherApp.ViewModel;
+
+namespace PROG1442_WeatherApp;
+
+public static class MauiProgram
+{
+	public static MauiApp CreateMauiApp()
+	{
+		var builder = MauiApp.CreateBuilder();
+		builder
+			.UseMauiApp<App>()
+			.ConfigureFonts(fonts =>
+			{
+				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+			});
+
+		builder.Services.AddSingleton<WeatherService>();
+		builder.Services.AddSingleton<MainViewModel>();
+		builder.Services.AddSingleton<MainPage>();
+
+		return builder.Build();
+	}
+}
