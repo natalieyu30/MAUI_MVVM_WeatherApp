@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:model="clr-namespace:PROG1442_WeatherApp.Models"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:PROG1442_WeatherApp.ViewModel"
+             x:DataType="viewmodel:DetailsViewModel"
+             x:Class="PROG1442_WeatherApp.DetailsPage"
+             Title="Weather Details">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="0.5*, 0.5*"
+                  RowDefinitions="Auto, Auto, *"
+                  Padding="20, 10">
+                <Label Grid.Row="0" Grid.ColumnSpan="2"
+                       FontSize="16" 
+                       HorizontalOptions="Start" 
+                       TextColor="Gray"
+                       Text="{Binding Forecastday.datesummary}"/>
+                <Image Source="{Binding Forecastday.day.condition.icon, StringFormat='https:{0}'}"
+                        Grid.Row="1" Grid.Column="0"
+                        HorizontalOptions="Center"  VerticalOptions="Center" 
+                        HeightRequest="120"  Aspect="AspectFill" />
+                <StackLayout Grid.Column="1" Orientation="Vertical" 
+                            Grid.Row="1" Grid.ColumnSpan="1"
+                            HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label FontSize="Large"
+                            TextColor="SlateGray"
+                            HorizontalOptions="Center"
+                           Margin="0,0,10,20"
+                            Text="{Binding Forecastday.day.condition.text}"/>
+                    <Label FontSize="Medium"
+                            Text="{Binding Forecastday.day.maxtemp_c, StringFormat='Max: {0} °C'}"/>
+                    
+                    <Label FontSize="Medium"
+                        Text="{Binding Forecastday.day.mintemp_c, StringFormat='Min: {0} °C'}"/>
+                </StackLayout>
+
+                <CollectionView Grid.Row="2" Grid.ColumnSpan="2" 
+                                ItemsSource="{Binding Forecastday.hour}"
+                                Margin="0,20,0,0"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Hour" >
+                            <Frame BackgroundColor="Transparent" BorderColor="LightGray" Padding="0, 5">
+                                <Grid ColumnDefinitions="Auto, Auto, Auto,Auto">
+                                    <Label Grid.Column="0" 
+                                           FontSize="Small"
+                                           TextColor="Gray"
+                                           Padding="16,0,0,0"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"
+                                           Text="{Binding timeonly}" />
+                                    <Label Grid.Column="1" 
+                                           FontSize="Small"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"
+                                           WidthRequest="150"
+                                           Text="{Binding condition.text}"/>
+                                    <Image Grid.Column="2"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           HeightRequest="50"
+                                           WidthRequest="50" 
+                                           Source="{Binding condition.weatherIconUrl}"/>
+                                    <Label Grid.Column="3" 
+                                           FontSize="Small"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"
+                                           Text="{Binding temp_c_hourly}"
+                                           Padding="16,0"/>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </VerticalStackLayout>
+        
+    </ScrollView>
+</ContentPage>

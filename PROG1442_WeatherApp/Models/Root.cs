@@ -93,6 +93,7 @@ namespace PROG1442_WeatherApp.Models
         public string date { get; set; }
         public string date_short => DateTime.Parse(date).Month.ToString() + "/" + DateTime.Parse(date).Day.ToString();
         public string dayoftheweek => DateTime.Parse(date).DayOfWeek.ToString().Substring(0, 3);
+        public string datesummary => dayoftheweek + ", " + date_short;
         public int date_epoch { get; set; }
         public Day day { get; set; }
         public Astro astro { get; set; }

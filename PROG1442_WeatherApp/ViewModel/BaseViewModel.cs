@@ -26,6 +26,9 @@ public partial class BaseViewModel :ObservableObject
     string cityName;
 
     [ObservableProperty]
+    string countryName;
+
+    [ObservableProperty]
     string weatherImage;
 
     [ObservableProperty]

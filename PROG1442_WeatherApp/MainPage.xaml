@@ -7,22 +7,17 @@
              x:Class="PROG1442_WeatherApp.MainPage"
              Title="Weather App - Natalie Yu">
 
-    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
           ColumnDefinitions=".75*, .25*"
-          Padding="20,20,20,10"
+          Padding="20,10"
           RowSpacing="10"
           ColumnSpacing="10"
           BackgroundColor="#eee">
 
-        <!--<Label Grid.ColumnSpan="2"
-                Text="Weather App" FontSize="20" TextColor="DarkOrchid"
-                HorizontalOptions="Start"
-                VerticalOptions="Center"/>-->
-
         <Entry x:Name="entry"
-                Placeholder="Search Location"
+                Placeholder="City name or Postal code"
                 Grid.Row="0"
-                FontSize="18"
+                FontSize="16"
                Text="{Binding Location}"/>
 
         <Button Text="Search" 
@@ -38,42 +33,44 @@
                            Grid.RowSpan="4"
                            Grid.ColumnSpan="2" />
 
-        <Label x:Name="lblCity" 
-               Grid.Row="1" Grid.ColumnSpan="2"
-               FontSize="24" 
+        <Label Grid.Row="1" Grid.ColumnSpan="2"
+               FontSize="22" 
                HorizontalOptions="Start" 
                TextColor="Gray"
                Text="{Binding CityName}"/>
 
-        <Grid Grid.Row="2" Grid.ColumnSpan="2"
+        <Label Grid.Row="2" Grid.ColumnSpan="2"
+               FontSize="16"
+               HorizontalOptions="Start" 
+               TextColor="Gray"
+               Text="{Binding CountryName}"/>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2"
               ColumnDefinitions="0.5*, 0.5*" >
-            <Image x:Name="imgCurrentIcon"
-                   Source="{Binding WeatherImage}"
+            <Image Source="{Binding WeatherImage}"
                    HorizontalOptions="Center"  VerticalOptions="Center" 
                    HeightRequest="120"  Aspect="AspectFill" />
             <StackLayout Grid.Column="1" Orientation="Vertical" 
                          HorizontalOptions="Center" VerticalOptions="Center">
-                <Label x:Name="lblWeatherDescription"
-                       FontSize="Small"
+                <Label FontSize="Small"
                        TextColor="SlateGray"
                        HorizontalOptions="Center"
                        Text="{Binding WeatherCondition}"/>
-                <Label x:Name="lblCurrentTemp" FontSize="40"
+                <Label FontSize="40"
                        Text="{Binding Temp}"/>
-                <Label x:Name="lblFeelslike"
-                       FontSize="Small"
+                <Label FontSize="Small"
                        TextColor="SlateGray"
                        HorizontalOptions="Center"
                        Text="{Binding FeelslikeTemp}"/>
             </StackLayout>
         </Grid>
 
-        <Label Grid.Row="3" 
+        <Label Grid.Row="4" 
                Text="Upcoming Weather"
                FontSize="18" TextColor="DarkOrchid"
                HorizontalOptions="Start"
                VerticalOptions="Center"/>
-        <CollectionView Grid.Row="4" Grid.ColumnSpan="2" HeightRequest="170" 
+        <CollectionView Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="164" 
                         ItemsSource="{Binding ForecastPeriod}"
                         SelectionMode="None">
             <CollectionView.ItemsLayout>
@@ -117,12 +114,12 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Label Grid.Row="5" 
+        <Label Grid.Row="6" 
                Text="Next 3 Days"
                FontSize="18" TextColor="DarkOrchid"
                HorizontalOptions="Start"
                VerticalOptions="Center"/>
-        <CollectionView Grid.Row="6" Grid.ColumnSpan="2" HeightRequest="210"
+        <CollectionView Grid.Row="7" Grid.ColumnSpan="2" HeightRequest="210"
                         ItemsSource="{Binding Forecastdays}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
@@ -130,6 +127,10 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Forecastday" >
                     <Frame BackgroundColor="Transparent" BorderColor="LightGray" WidthRequest="110" Padding="0, 5">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}" />
+                        </Frame.GestureRecognizers>
                         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" >
                             <Label Grid.Row="0" 
                                FontSize="Medium"

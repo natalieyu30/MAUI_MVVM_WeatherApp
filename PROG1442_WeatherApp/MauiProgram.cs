@@ -18,7 +18,9 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<WeatherService>();
 		builder.Services.AddSingleton<MainViewModel>();
+		builder.Services.AddTransient<DetailsViewModel>();
 		builder.Services.AddSingleton<MainPage>();
+		builder.Services.AddTransient<DetailsPage>();
 
 		return builder.Build();
 	}

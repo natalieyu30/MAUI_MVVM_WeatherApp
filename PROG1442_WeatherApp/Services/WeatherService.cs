@@ -28,6 +28,10 @@ public class WeatherService
         {
             weatherList = await response.Content.ReadFromJsonAsync<Root>();
         }
+        else
+        {
+            await Shell.Current.DisplayAlert("Error!", $"Unable to get weather", "OK");
+        }
         return weatherList;
     }
 }

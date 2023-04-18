@@ -24,6 +24,18 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [RelayCommand]
+    async Task GoToDetailsAsync(Forecastday forecastday)
+    {
+        if (forecastday is null) return;
+
+        await Shell.Current.GoToAsync($"{nameof(DetailsPage)}", true, 
+            new Dictionary<string, object>
+            {
+                {"Forecastday", forecastday }
+            });
+    }
+
+    [RelayCommand]
     async Task GetWeatherAsync()
     {
         if (IsBusy) return;
@@ -34,19 +46,14 @@ public partial class MainViewModel : BaseViewModel
             var weatherData = await weatherService.GetWeatherData(Location);
 
 
-            CityName = weatherData.location.name + ", " + weatherData.location.country;
+            CityName = weatherData.location.name + ", " + weatherData.location.region;
+            CountryName = weatherData.location.country;
             WeatherImage = "https:" + weatherData.current.condition.icon;
             WeatherCondition = weatherData.current.condition.text;
             Temp = Math.Round(weatherData.current.temp_c).ToString() + "°C";
             FeelslikeTemp = "Feels like " + Math.Round(weatherData.current.feelslike_c).ToString() + "°C";
 
             // forecast for next 6, 12, 18 hours
-            //ForecastPeriod.Clear();
-            //foreach (var item in weatherData.forecast.forecastday[0].hour)
-            //{
-            //    ForecastPeriod.Add(item);
-            //}
-
             for (int i = 5; i < 18; i += 6)
             {
                 ForecastPeriod.Add(weatherData.forecast.forecastday[0].hour[i]);
@@ -58,11 +65,6 @@ public partial class MainViewModel : BaseViewModel
             {
                 Forecastdays.Add(weatherData.forecast.forecastday[i]);
             }
-
-            //foreach (var item in weatherData.forecast.forecastday)
-            //{
-            //    Forecastdays.Add(item);
-            //}
             Location = "";
         }
         catch (Exception ex)
