@@ -12,8 +12,6 @@ namespace PROG1442_WeatherApp.ViewModel;
 [QueryProperty("Forecastday", "Forecastday")]
 public partial class DetailsViewModel : BaseViewModel
 {
-    
-
     public DetailsViewModel() 
     {
         

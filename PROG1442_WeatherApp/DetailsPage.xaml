@@ -30,7 +30,7 @@
                             Text="{Binding Forecastday.day.condition.text}"/>
                     <Label FontSize="16"
                             Text="{Binding Forecastday.day.maxtemp_c, StringFormat='Max: {0} °C'}"/>
-                    
+
                     <Label FontSize="16"
                         Text="{Binding Forecastday.day.mintemp_c, StringFormat='Min: {0} °C'}"/>
                 </StackLayout>
@@ -76,6 +76,5 @@
                 </CollectionView>
             </Grid>
         </VerticalStackLayout>
-        
     </ScrollView>
 </ContentPage>

@@ -16,13 +16,12 @@ namespace PROG1442_WeatherApp.ViewModel;
 public partial class MainViewModel : BaseViewModel
 {
     WeatherService weatherService;
-    public ObservableCollection<Forecastday> Forecastdays { get; } = new();
     public ObservableCollection<Hour> ForecastPeriod { get; } = new();
+    public ObservableCollection<Forecastday> Forecastdays { get; } = new();
 
     IConnectivity connectivity;
     public MainViewModel(WeatherService weatherService, IConnectivity connectivity) 
     {
-        //Location = "";
         this.weatherService = weatherService;
         this.connectivity = connectivity;
         GetCurrentLocation();
@@ -35,7 +34,7 @@ public partial class MainViewModel : BaseViewModel
         double latitude = currentLocation.Latitude;
         double longitude = currentLocation.Longitude;
         Location = latitude.ToString() + "," + longitude.ToString();
-        GetWeatherAsync();
+        await GetWeatherAsync();
     }
 
     [RelayCommand]

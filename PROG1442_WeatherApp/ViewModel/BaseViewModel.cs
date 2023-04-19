@@ -11,10 +11,7 @@ namespace PROG1442_WeatherApp.ViewModel;
 
 public partial class BaseViewModel :ObservableObject
 {
-    public BaseViewModel()
-    {
-
-    }
+    public BaseViewModel() {}
 
     [ObservableProperty]
     bool isBusy;
