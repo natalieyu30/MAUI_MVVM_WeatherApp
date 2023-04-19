@@ -5,6 +5,7 @@ using PROG1442_WeatherApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -17,10 +18,24 @@ public partial class MainViewModel : BaseViewModel
     WeatherService weatherService;
     public ObservableCollection<Forecastday> Forecastdays { get; } = new();
     public ObservableCollection<Hour> ForecastPeriod { get; } = new();
-    public MainViewModel(WeatherService weatherService) 
+
+    IConnectivity connectivity;
+    public MainViewModel(WeatherService weatherService, IConnectivity connectivity) 
     {
-        Location = "Niagara Falls";
+        //Location = "";
         this.weatherService = weatherService;
+        this.connectivity = connectivity;
+        GetCurrentLocation();
+    }
+
+    [RelayCommand]
+    async Task GetCurrentLocation()
+    {
+        var currentLocation = await Geolocation.GetLocationAsync();
+        double latitude = currentLocation.Latitude;
+        double longitude = currentLocation.Longitude;
+        Location = latitude.ToString() + "," + longitude.ToString();
+        GetWeatherAsync();
     }
 
     [RelayCommand]
@@ -42,6 +57,12 @@ public partial class MainViewModel : BaseViewModel
 
         try
         {
+            if (connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await Shell.Current.DisplayAlert("Internet Connection", $"Check your internet and try again.", "OK");
+                return;
+            }
+
             IsBusy = true;
             var weatherData = await weatherService.GetWeatherData(Location);
 
@@ -61,7 +82,7 @@ public partial class MainViewModel : BaseViewModel
 
             // forecast for next three days
             Forecastdays.Clear();
-            for (int i = 1; i <= 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Forecastdays.Add(weatherData.forecast.forecastday[i]);
             }

@@ -22,7 +22,7 @@ public class WeatherService
     public async Task<Root> GetWeatherData(string place)
     {
         var url = "https://api.weatherapi.com/v1/forecast.json";
-        var response = await httpClient.GetAsync($"{url}?key=05478338a666499f80a113410230504&q={place}&days=4&aqi=no&alerts=no");
+        var response = await httpClient.GetAsync($"{url}?key=05478338a666499f80a113410230504&q={place}&days=3&aqi=no&alerts=no");
         
         if (response.IsSuccessStatusCode)
         {

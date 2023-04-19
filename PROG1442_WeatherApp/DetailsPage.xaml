@@ -23,15 +23,15 @@
                 <StackLayout Grid.Column="1" Orientation="Vertical" 
                             Grid.Row="1" Grid.ColumnSpan="1"
                             HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label FontSize="Large"
+                    <Label FontSize="Medium"
                             TextColor="SlateGray"
                             HorizontalOptions="Center"
                            Margin="0,0,10,20"
                             Text="{Binding Forecastday.day.condition.text}"/>
-                    <Label FontSize="Medium"
+                    <Label FontSize="16"
                             Text="{Binding Forecastday.day.maxtemp_c, StringFormat='Max: {0} °C'}"/>
                     
-                    <Label FontSize="Medium"
+                    <Label FontSize="16"
                         Text="{Binding Forecastday.day.mintemp_c, StringFormat='Min: {0} °C'}"/>
                 </StackLayout>
 
@@ -45,11 +45,10 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Hour" >
                             <Frame BackgroundColor="Transparent" BorderColor="LightGray" Padding="0, 5">
-                                <Grid ColumnDefinitions="Auto, Auto, Auto,Auto">
+                                <Grid ColumnDefinitions="0.25*, 0.35*, 0.2*,0.2*">
                                     <Label Grid.Column="0" 
                                            FontSize="Small"
                                            TextColor="Gray"
-                                           Padding="16,0,0,0"
                                            HorizontalTextAlignment="Center"
                                            VerticalTextAlignment="Center"
                                            Text="{Binding timeonly}" />
@@ -69,8 +68,7 @@
                                            FontSize="Small"
                                            HorizontalTextAlignment="Center"
                                            VerticalTextAlignment="Center"
-                                           Text="{Binding temp_c_hourly}"
-                                           Padding="16,0"/>
+                                           Text="{Binding temp_c_hourly}"/>
                                 </Grid>
                             </Frame>
                         </DataTemplate>

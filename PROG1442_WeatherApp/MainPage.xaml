@@ -78,7 +78,7 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Hour" >
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGray" WidthRequest="110" Padding="0, 5">
+                    <Frame BackgroundColor="#f3f3f3" BorderColor="LightGray" WidthRequest="110" Padding="0, 5">
                         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto">
                             <Label Grid.Row="0" 
                                FontSize="Small"
@@ -126,7 +126,7 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Forecastday" >
-                    <Frame BackgroundColor="Transparent" BorderColor="LightGray" WidthRequest="110" Padding="0, 5">
+                    <Frame BackgroundColor="#f8f8f8" BorderColor="LightGray" WidthRequest="110" Padding="0, 5" >
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}"
                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}" />
