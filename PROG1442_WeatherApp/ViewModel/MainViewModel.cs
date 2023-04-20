@@ -74,7 +74,8 @@ public partial class MainViewModel : BaseViewModel
             Temp = Math.Round(weatherData.current.temp_c).ToString() + "°C";
             FeelslikeTemp = "Feels like " + Math.Round(weatherData.current.feelslike_c).ToString() + "°C";
 
-            // forecast for next 6, 12, 18 hours
+            // forecast for next 4, 8, 12, 16, 20 hours
+            ForecastPeriod.Clear();
             for (int i = 4; i < 24; i += 4)
             {
                 ForecastPeriod.Add(weatherData.forecast.forecastday[0].hour[i]);
