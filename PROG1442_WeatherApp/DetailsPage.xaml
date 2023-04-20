@@ -10,7 +10,8 @@
         <VerticalStackLayout>
             <Grid ColumnDefinitions="0.5*, 0.5*"
                   RowDefinitions="Auto, Auto, *"
-                  Padding="20, 10">
+                  Padding="20, 10"
+                  BackgroundColor="#eee">
                 <Label Grid.Row="0" Grid.ColumnSpan="2"
                        FontSize="16" 
                        HorizontalOptions="Start" 
@@ -19,20 +20,24 @@
                 <Image Source="{Binding Forecastday.day.condition.icon, StringFormat='https:{0}'}"
                         Grid.Row="1" Grid.Column="0"
                         HorizontalOptions="Center"  VerticalOptions="Center" 
-                        HeightRequest="120"  Aspect="AspectFill" />
+                        HeightRequest="120" WidthRequest="120"  Aspect="AspectFill" />
                 <StackLayout Grid.Column="1" Orientation="Vertical" 
                             Grid.Row="1" Grid.ColumnSpan="1"
                             HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label FontSize="Small"
+                           TextColor="SlateGray"
+                           Margin="0,0,10,0"
+                           Text="{Binding CityName}"/>
                     <Label FontSize="Medium"
-                            TextColor="SlateGray"
-                            HorizontalOptions="Center"
-                           Margin="0,0,10,20"
-                            Text="{Binding Forecastday.day.condition.text}"/>
-                    <Label FontSize="16"
-                            Text="{Binding Forecastday.day.maxtemp_c, StringFormat='Max: {0} °C'}"/>
-
-                    <Label FontSize="16"
-                        Text="{Binding Forecastday.day.mintemp_c, StringFormat='Min: {0} °C'}"/>
+                           TextColor="SlateGray"
+                           Margin="0,0,10,0"
+                           Text="{Binding Forecastday.day.condition.text}"/>
+                    <Label FontSize="15"
+                           TextColor="#333"
+                           Text="{Binding Forecastday.day.maxtemp_c, StringFormat='Max: {0} °C'}"/>
+                    <Label FontSize="15"
+                           TextColor="#333"
+                           Text="{Binding Forecastday.day.mintemp_c, StringFormat='Min: {0} °C'}"/>
                 </StackLayout>
 
                 <CollectionView Grid.Row="2" Grid.ColumnSpan="2" 
@@ -54,6 +59,7 @@
                                            Text="{Binding timeonly}" />
                                     <Label Grid.Column="1" 
                                            FontSize="Small"
+                                           TextColor="#333"
                                            HorizontalTextAlignment="Center"
                                            VerticalTextAlignment="Center"
                                            WidthRequest="150"
@@ -66,6 +72,7 @@
                                            Source="{Binding condition.weatherIconUrl}"/>
                                     <Label Grid.Column="3" 
                                            FontSize="Small"
+                                           TextColor="#333"
                                            HorizontalTextAlignment="Center"
                                            VerticalTextAlignment="Center"
                                            Text="{Binding temp_c_hourly}"/>

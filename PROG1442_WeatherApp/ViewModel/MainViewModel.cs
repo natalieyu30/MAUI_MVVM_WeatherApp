@@ -45,7 +45,8 @@ public partial class MainViewModel : BaseViewModel
         await Shell.Current.GoToAsync($"{nameof(DetailsPage)}", true, 
             new Dictionary<string, object>
             {
-                {"Forecastday", forecastday }
+                {"Forecastday", forecastday },
+                { "CityName", CityName}
             });
     }
 
@@ -74,7 +75,7 @@ public partial class MainViewModel : BaseViewModel
             FeelslikeTemp = "Feels like " + Math.Round(weatherData.current.feelslike_c).ToString() + "°C";
 
             // forecast for next 6, 12, 18 hours
-            for (int i = 5; i < 18; i += 6)
+            for (int i = 4; i < 24; i += 4)
             {
                 ForecastPeriod.Add(weatherData.forecast.forecastday[0].hour[i]);
             }

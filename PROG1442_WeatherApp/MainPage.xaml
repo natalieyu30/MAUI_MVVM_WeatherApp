@@ -7,165 +7,178 @@
              x:Class="PROG1442_WeatherApp.MainPage"
              Title="Weather App - Natalie Yu">
 
-    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
-          ColumnDefinitions=".75*, .25*"
-          Padding="20,10"
-          RowSpacing="10"
-          ColumnSpacing="10"
-          BackgroundColor="#eee">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              ColumnDefinitions=".75*, .25*"
+              Padding="20,10"
+              RowSpacing="10"
+              ColumnSpacing="10"
+              BackgroundColor="#eee">
 
-        <Entry x:Name="entry"
-                Placeholder="City name or Postal code"
-                Grid.Row="0"
-                FontSize="16"
-               Text="{Binding Location}"/>
+            <Entry x:Name="entry"
+                    Placeholder="City name or Postal code"
+                    Grid.Row="0"
+                    FontSize="16"
+                   TextColor="#333"
+                   Text="{Binding Location}"/>
 
-        <Button Text="Search" 
-                Grid.Row="0"
-                Grid.Column="1"
-                IsEnabled="{Binding IsNotBusy}"
-                Command="{Binding GetWeatherCommand}"/>
+            <Button Text="Search" 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Command="{Binding GetWeatherCommand}"/>
 
-        <ActivityIndicator IsVisible="{Binding IsBusy}"
-                           IsRunning="{Binding IsBusy}"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="CenterAndExpand"
-                           Grid.RowSpan="4"
-                           Grid.ColumnSpan="2" />
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               Grid.RowSpan="4"
+                               Grid.ColumnSpan="2" />
 
-        <Label Grid.Row="1" Grid.ColumnSpan="2"
-               FontSize="22" 
-               HorizontalOptions="Start" 
-               TextColor="Gray"
-               Text="{Binding CityName}"/>
+            <Label Grid.Row="1" Grid.ColumnSpan="2"
+                   FontSize="22" 
+                   HorizontalOptions="Start" 
+                   TextColor="Gray"
+                   Text="{Binding CityName}"/>
 
-        <Label Grid.Row="2" Grid.ColumnSpan="2"
-               FontSize="16"
-               HorizontalOptions="Start" 
-               TextColor="Gray"
-               Text="{Binding CountryName}"/>
+            <Label Grid.Row="2" Grid.ColumnSpan="2"
+                   FontSize="16"
+                   HorizontalOptions="Start" 
+                   TextColor="Gray"
+                   Text="{Binding CountryName}"/>
 
-        <Grid Grid.Row="3" Grid.ColumnSpan="2"
-              ColumnDefinitions="0.5*, 0.5*" >
-            <Image Source="{Binding WeatherImage}"
-                   HorizontalOptions="Center"  VerticalOptions="Center" 
-                   HeightRequest="120"  Aspect="AspectFill" />
-            <StackLayout Grid.Column="1" Orientation="Vertical" 
-                         HorizontalOptions="Center" VerticalOptions="Center">
-                <Label FontSize="Small"
-                       TextColor="SlateGray"
-                       HorizontalOptions="Center"
-                       Text="{Binding WeatherCondition}"/>
-                <Label FontSize="40"
-                       Text="{Binding Temp}"/>
-                <Label FontSize="Small"
-                       TextColor="SlateGray"
-                       HorizontalOptions="Center"
-                       Text="{Binding FeelslikeTemp}"/>
-            </StackLayout>
+            <Grid Grid.Row="3" Grid.ColumnSpan="2"
+                  ColumnDefinitions="0.5*, 0.5*" >
+                <Image Source="{Binding WeatherImage}"
+                       HorizontalOptions="Center"  VerticalOptions="Center" 
+                       HeightRequest="120" WidthRequest="120" Aspect="AspectFill" />
+                <StackLayout Grid.Column="1" Orientation="Vertical" 
+                             HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label FontSize="Small"
+                           TextColor="SlateGray"
+                           HorizontalOptions="Center"
+                           Text="{Binding WeatherCondition}"/>
+                    <Label FontSize="40"
+                           TextColor="#333"
+                           Text="{Binding Temp}"/>
+                    <Label FontSize="Small"
+                           TextColor="SlateGray"
+                           HorizontalOptions="Center"
+                           Text="{Binding FeelslikeTemp}"/>
+                </StackLayout>
+            </Grid>
+
+            <Label Grid.Row="4" 
+                   Text="Upcoming Weather"
+                   FontSize="18" TextColor="DarkOrchid"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+            <CollectionView Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="164" 
+                            ItemsSource="{Binding ForecastPeriod}"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Hour" >
+                        <Frame BackgroundColor="#f3f3f3" BorderColor="LightGray" WidthRequest="110" Padding="0, 5">
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+                                <Label Grid.Row="0" 
+                                   FontSize="Small"
+                                   TextColor="Gray"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding dateonly}"/>
+                                <Label Grid.Row="1" 
+                                   FontSize="Small"
+                                   TextColor="Gray"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding timeonly}" />
+                                <Label Grid.Row="2" 
+                                   FontSize="Small"
+                                   TextColor="#333"
+                                   HorizontalOptions="Center"
+                                   WidthRequest="100"
+                                   HeightRequest="40"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"
+                                   Text="{Binding condition.text}"/>
+                                <Image Grid.Row="3"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Start"
+                                   HeightRequest="55"
+                                   WidthRequest="55" 
+                                   Source="{Binding condition.weatherIconUrl}"/>
+                                <Label Grid.Row="4" 
+                                   FontSize="Small"
+                                   TextColor="#333"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding temp_c_hourly}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Grid.Row="6" 
+                   Text="Next 3 Days"
+                   FontSize="18" TextColor="DarkOrchid"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+            <CollectionView Grid.Row="7" Grid.ColumnSpan="2" HeightRequest="210"
+                            ItemsSource="{Binding Forecastdays}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Forecastday" >
+                        <Frame BackgroundColor="#f8f8f8" BorderColor="LightGray" WidthRequest="110" Padding="0, 5" >
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}" />
+                            </Frame.GestureRecognizers>
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" >
+                                <Label Grid.Row="0" 
+                                    TextColor="#333"
+                                    FontSize="Medium"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding dayoftheweek}"/>
+                                <Label Grid.Row="1" 
+                                   FontSize="Small"
+                                   TextColor="#333"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding date_short}"/>
+                                <Label Grid.Row="2" 
+                                   FontSize="Small"
+                                   TextColor="#333"
+                                   HorizontalOptions="Center"
+                                   WidthRequest="100"
+                                   HeightRequest="40"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"
+                                   Text="{Binding day.condition.text}"/>
+                                <Image Grid.Row="3"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Start"
+                                   HeightRequest="60"
+                                   WidthRequest="60" 
+                                   Source="{Binding day.condition.weatherIconUrl}"/>
+                                <Label Grid.Row="4" 
+                                   FontSize="Small"
+                                   TextColor="#333"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding day.maxtemp_round}"/>
+                                <Label Grid.Row="5" 
+                                   FontSize="Small"
+                                   TextColor="#333"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding day.mintemp_round}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
-
-        <Label Grid.Row="4" 
-               Text="Upcoming Weather"
-               FontSize="18" TextColor="DarkOrchid"
-               HorizontalOptions="Start"
-               VerticalOptions="Center"/>
-        <CollectionView Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="164" 
-                        ItemsSource="{Binding ForecastPeriod}"
-                        SelectionMode="None">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Hour" >
-                    <Frame BackgroundColor="#f3f3f3" BorderColor="LightGray" WidthRequest="110" Padding="0, 5">
-                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto">
-                            <Label Grid.Row="0" 
-                               FontSize="Small"
-                               TextColor="Gray"
-                               HorizontalOptions="Center"
-                               Text="{Binding dateonly}"/>
-                            <Label Grid.Row="1" 
-                               FontSize="Small"
-                               TextColor="Gray"
-                               HorizontalOptions="Center"
-                               Text="{Binding timeonly}" />
-                            <Label Grid.Row="2" 
-                               FontSize="Small"
-                               HorizontalOptions="Center"
-                               WidthRequest="100"
-                               HeightRequest="40"
-                               HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center"
-                               Text="{Binding condition.text}"/>
-                            <Image Grid.Row="3"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Start"
-                               HeightRequest="55"
-                               WidthRequest="55" 
-                               Source="{Binding condition.weatherIconUrl}"/>
-                            <Label Grid.Row="4" 
-                               FontSize="Small"
-                               HorizontalOptions="Center"
-                               Text="{Binding temp_c_hourly}"/>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <Label Grid.Row="6" 
-               Text="Next 3 Days"
-               FontSize="18" TextColor="DarkOrchid"
-               HorizontalOptions="Start"
-               VerticalOptions="Center"/>
-        <CollectionView Grid.Row="7" Grid.ColumnSpan="2" HeightRequest="210"
-                        ItemsSource="{Binding Forecastdays}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Forecastday" >
-                    <Frame BackgroundColor="#f8f8f8" BorderColor="LightGray" WidthRequest="110" Padding="0, 5" >
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=GoToDetailsCommand}" />
-                        </Frame.GestureRecognizers>
-                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" >
-                            <Label Grid.Row="0" 
-                               FontSize="Medium"
-                               HorizontalOptions="Center"
-                               Text="{Binding dayoftheweek}"/>
-                            <Label Grid.Row="1" 
-                               FontSize="Small"
-                               HorizontalOptions="Center"
-                               Text="{Binding date_short}"/>
-                            <Label Grid.Row="2" 
-                               FontSize="Small"
-                               HorizontalOptions="Center"
-                               WidthRequest="100"
-                               HeightRequest="40"
-                               HorizontalTextAlignment="Center"
-                               VerticalTextAlignment="Center"
-                               Text="{Binding day.condition.text}"/>
-                            <Image Grid.Row="3"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Start"
-                               HeightRequest="60"
-                               WidthRequest="60" 
-                               Source="{Binding day.condition.weatherIconUrl}"/>
-                            <Label Grid.Row="4" 
-                               FontSize="Small"
-                               HorizontalOptions="Center"
-                               Text="{Binding day.maxtemp_round}"/>
-                            <Label Grid.Row="5" 
-                               FontSize="Small"
-                               HorizontalOptions="Center"
-                               Text="{Binding day.mintemp_round}"/>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

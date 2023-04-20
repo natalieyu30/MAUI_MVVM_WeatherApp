@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace PROG1442_WeatherApp.ViewModel;
 
 [QueryProperty("Forecastday", "Forecastday")]
+[QueryProperty("CityName", "CityName")]
 public partial class DetailsViewModel : BaseViewModel
 {
     public DetailsViewModel() 
     {
-        
     }
 
     [ObservableProperty]
